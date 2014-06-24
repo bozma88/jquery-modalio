@@ -1,0 +1,31 @@
+.modalio-overlay {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 999;
+    background-color: rgba(100,100,100,0.2);
+    text-align: center;
+}
+
+.modalio-wrapper-outer {
+    display: table;
+    height: 100%;
+    margin: 0 auto;
+}
+
+.modalio-wrapper-inner {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.modalio-wrapper-inner>div {
+    background-color: #FFF;
+    padding: 1em 1.5em;
+    box-shadow: 0 1px 10px rgba(50,50,50,0.2);
+}
+
+[id^="modalio-"] {
+    display: none;
+}

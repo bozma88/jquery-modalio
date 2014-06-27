@@ -120,6 +120,7 @@
     var options = $.extend(true, {}, defaultOptions, options);
     var data = data || {};
 
+
     var $modal;
     var $template = $(templateId);
 
@@ -131,13 +132,8 @@
     var $instance = $template.clone(true);
     $instance.css('display', 'block');
 
-    // Populate data
-    for (var key in data) {
-      // Filter prototype’s keys
-      if (p.hasOwnProperty(key)) {
-        $instance.find('.'+key).html(data[key]);
-      }
-    }
+    // Populate instance with data
+    _populateTemplate($instance, data);
 
     $modal = $skel.clone(true);
     $modal.data('options', options);
@@ -343,6 +339,56 @@
       var $flashMessage = $('body').find('#modalio-flash');
       if ($flashMessage.length) {
         embed($flashMessage);
+      }
+    }
+  };
+
+
+  /**
+   * Inject content and attributes into a template
+   */
+  var _populateTemplate = function($template, data){
+    var dataSkel = {
+      content: null,
+      attr: {}
+    };
+    for (var i in data) {
+      // Filter prototype’s keys
+      if (data.hasOwnProperty(i)) {
+
+        var dataItem = data[i];
+        var content = null;
+
+        // Skip unmatched elements
+        var $element = $template.find(i);
+        if (!$element.length) { continue; }
+
+        // If data of element is a map, iterate through keys
+        if ('object' == typeof dataItem) {
+          // Extend dataSkel
+          dataItem = $.extend(true, {}, dataSkel, dataItem);
+          // Iterate over attributes and inject them
+          for (var j in dataItem.attr) {
+            var attribute = dataItem.attr[j];
+            switch (j) {
+              case 'class':
+                $element.addClass(attribute); // Classes need to be appended
+                break;
+              default:
+                $element.attr(j, attribute); // Otherwise inject attribute
+            }
+          }
+          content = dataItem.content;
+        } else {
+          // Otherwise inject content
+          content = dataItem;
+        }
+
+        // Inject content
+        if (null !== content) {
+          $element.html(content);
+        }
+
       }
     }
   };

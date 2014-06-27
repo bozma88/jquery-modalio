@@ -296,8 +296,9 @@
         case '#':
           // Embed something that’s already in the page
           embed(href, inlineOptions);
+          break;
         default:
-          // Eventually load only a fragment of the external page
+          // Eventually load only a fragment of an external page
           var target = $this.data('modalio-target');
           load(href, target, inlineOptions);
       }

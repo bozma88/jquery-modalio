@@ -31,6 +31,10 @@
     },
     closeOnOuterClick: true, // Whether to close open modal by clicking on surrounding overlay
     closeOnEsc: true, // Whether to close open modal by pressing ESC on keyboard
+    closeOnEnter: false, // Whether to close open modal by pressing ENTER on keyboard
+    hasCloseBtn: true,
+    closeBtnLabel: 'OK',
+    closeBtnStyle: '<button class="modalio-close-button" data-modalio-close></button>',
     openFlashMessage: true, // Whether to search for a flash message container at plugin initialization
     policy: 'swap' // Stacking policy {swap|stack|queue}
   };
@@ -64,6 +68,10 @@
     $modal.data('options', options);
     $modal.data('type', type);
     $modal.find('.modalio-wrapper-inner').append($wrapper);
+
+    if (options.hasCloseBtn) {
+      _injectCloseBtn($modal, options);
+    }
 
     _push($modal);
     _open(stack[0]);
@@ -303,10 +311,11 @@
     // Bind global hotkeys
     $('body').on('keydown', function(e){
       if ($openModal) {
-        if ($openModal.data('options').closeOnEsc) {
-          if (27 === e.which) {
-            _close($openModal);
-          }
+        if ($openModal.data('options').closeOnEsc && 27 === e.which) {
+          _close($openModal);
+        }
+        else if ($openModal.data('options').closeOnEnter && 13 === e.which) {
+          _close($openModal);
         }
       }
     });
@@ -315,18 +324,22 @@
     $skel.on('click', function(e){
       var $this = $(this);
       var options = $this.data('options');
-
-      switch (e.type) {
-        case 'click':
-          // Close the modal
-          if (options.closeOnOuterClick) {
-            // Close if the overlay was clicked
-            if ($(e.target).hasClass('modalio-overlay')) {
-              _close($this);
-            }
-          }
-          break;
+      // Close the modal
+      if (options.closeOnOuterClick) {
+        // Close if the overlay was clicked
+        if ($(e.target).hasClass('modalio-overlay')) {
+          _close($this);
+        }
       }
+    });
+
+    // Close open modal
+    $skel.on('click', '[data-modalio-close]', function(e){
+      e.preventDefault();
+      var $this = $(this);
+      // Close modal, eventually clearing the queue
+      var clearQueue = $this.is('[data-modalio-clear]');
+      close(clearQueue);
     });
   };
 
@@ -395,10 +408,30 @@
 
 
   /**
+   * Injects the close button into the modal
+   */
+  var _injectCloseBtn = function($modal, options){
+    var $closeBtn = $(options.closeBtnStyle);
+    var $labelContainer = _deepestChild($closeBtn);
+    $labelContainer.html(options.closeBtnLabel);
+    $modal.find('.modalio-wrapper-inner>*').append($closeBtn);
+  };
+
+
+  /**
    * Permanently extends default settings.
    */
   var _config = function(customOptions){
     $.extend(true, defaultOptions, customOptions);
+  };
+
+
+  /**
+   * Finds the deepest child of an element, eventually returning itself.
+   */
+  var _deepestChild = function($element){
+    while (($element = $element.children()).length);
+    return($element.end());
   };
 
 

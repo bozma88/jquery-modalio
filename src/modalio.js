@@ -69,9 +69,7 @@
     $modal.data('type', type);
     $modal.find('.modalio-wrapper-inner').append($wrapper);
 
-    if (options.hasCloseBtn) {
-      _injectCloseBtn($modal, options);
-    }
+    _injectCloseBtn($modal, options);
 
     _push($modal);
     _open(stack[0]);
@@ -105,6 +103,8 @@
       $modal.data('type', 'embed');
       $modal.data('cache-id', elementId);
       $modal.find('.modalio-wrapper-inner').append($wrapper);
+
+      _injectCloseBtn($modal, options);
 
     } else {
       // Not found, abort
@@ -147,6 +147,8 @@
     $modal.data('options', options);
     $modal.data('type', 'template');
     $modal.find('.modalio-wrapper-inner').append($instance);
+
+    _injectCloseBtn($modal, options);
 
     _push($modal);
     _open(stack[0]);
@@ -408,9 +410,12 @@
 
 
   /**
-   * Injects the close button into the modal
+   * Injects the close button into the modal, if allowed by config.
    */
   var _injectCloseBtn = function($modal, options){
+    if (!options.hasCloseBtn) {
+      return;
+    }
     var $closeBtn = $(options.closeBtnStyle);
     var $labelContainer = _deepestChild($closeBtn);
     $labelContainer.html(options.closeBtnLabel);

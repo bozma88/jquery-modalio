@@ -32,10 +32,10 @@
     closeOnOuterClick: true, // Whether to close open modal by clicking on surrounding overlay
     closeOnEsc: true, // Whether to close open modal by pressing ESC on keyboard
     closeOnEnter: false, // Whether to close open modal by pressing ENTER on keyboard
-    hasCloseBtn: true,
-    closeBtnLabel: 'OK',
-    closeBtnStyle: '<button class="modalio-close-button" data-modalio-close></button>',
-    openFlashMessage: true, // Whether to search for a flash message container at plugin initialization
+    addCloseBtn: false, // Wheter to inject a close button inside at the end of modal content
+    closeBtnLabel: 'OK', // Close button text
+    closeBtnStyle: '<button class="modalio-close-button" data-modalio-close></button>', // Close button template
+    openFlashMessage: false, // Whether to search for a flash message container at plugin initialization
     policy: 'swap' // Stacking policy {swap|stack|queue}
   };
 
@@ -413,7 +413,7 @@
    * Injects the close button into the modal, if allowed by config.
    */
   var _injectCloseBtn = function($modal, options){
-    if (!options.hasCloseBtn) {
+    if (!options.addCloseBtn) {
       return;
     }
     var $closeBtn = $(options.closeBtnStyle);
@@ -465,7 +465,6 @@
     load: load,
     close: close
   };
-
 
   return api;
 

@@ -1,0 +1,147 @@
+<html>
+  <head>
+    <link rel="stylesheet" href="../src/modalio.css">
+    <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="../src/modalio.js"></script>
+  </head>
+  <body>
+
+    <h3>Simple modal, embedded and triggered by an anchor</h3>
+    <a href="#modalio-basic" data-modalio>Click me!</a>
+    <hr>
+
+    <h3>Simple modal, embedded and triggered programmatically</h3>
+    <a href="#" id="demo-embed">Click me!</a>
+    <code>
+      <pre>
+        $('#demo-embed').click(function(){
+          Modalio.embed('#modalio-basic-2');
+        });
+      </pre>
+    </code>
+    <hr>
+
+    <h3>Nested modals and stacking policies</h3>
+    <a href="#" id="demo-nested-outer">Click me!</a>
+    <code>
+      <pre>
+        $('#demo-nested-outer').click(function(){
+          Modalio.embed('#modalio-basic-3');
+        });
+        $('#demo-nested-inner').click(function(){
+          Modalio.embed('#modalio-basic-4', { policy: 'stack' });
+        });
+        $('#demo-nested-inner-inner').click(function(){
+          Modalio.embed('#modalio-basic-5');
+        });
+      </pre>
+    </code>
+    <hr>
+
+    <h3>Messages</h3>
+    <a href="#" id="demo-message">Click me!</a>
+    <code>
+      <pre>
+        $('#demo-message').click(function(){
+          Modalio.message('Hello world!');
+        });
+      </pre>
+    </code>
+    <hr>
+
+    <h3>Queue policy</h3>
+    <a href="#" id="demo-message-queue">Click me!</a>
+    <code>
+      <pre>
+        $('#demo-message-queue').click(function(){
+          Modalio.message('One', { policy: 'queue' });
+          Modalio.message('Two', { policy: 'queue' });
+          Modalio.message('Three', { policy: 'queue' });
+        });
+      </pre>
+    </code>
+    <hr>
+
+
+
+    <div class="modals">
+
+      <div id="modalio-basic">
+        This is a simple modal, triggered by an anchor.<br>
+        Click everywhere outside the modal or press ESC to dismiss.<br>
+        Modals triggered by anchors take the default options,<br>
+        that you can override on <code>Modalio.init({options})</code>.
+      </div>
+
+      <div id="modalio-basic-2">
+        This is a simple modal, triggered programmatically.<br>
+        When you open modals programmatically, you can locally override<br>
+        options by passing the ones you want to override.
+      </div>
+
+      <div id="modalio-basic-3">
+        <h3>level 1</h3>
+        This is a modal that embeds a button that opens a new modal.<br>
+        What happens when you try to open a modal when another is already open?<br>
+        The behaviour is configurable. In this case, we configured the nested modal to <b>stack</b><br>
+        over other open modals. When you close it, the old modal is reopened.
+        <a href="#" id="demo-nested-inner">Click me to open another modal!</a>
+      </div>
+
+      <div id="modalio-basic-4">
+        <h3>level 2</h3>
+        This is a nested modal, configured to be opened with the stack policy.<br>
+        Close it and you’ll see the old open modal reopening.<br><br>
+        But.. What about opening <i>another</i> nested modal with the default stacking policy ("swap")?<br>
+        Try it! It’ll swap the current open modal. When you’ll close it, you’ll go up in the queue and re-open the first modal you opened!<br>
+        <a href="#" id="demo-nested-inner-inner">Click me to open another nested modal with default policy!</a>
+      </div>
+
+      <div id="modalio-basic-5">
+        <h3>level 3</h3>
+        Wow! We’re in the deep!<br>
+        Since we swapped the latest modal for this one, closing it will open the very first modal you opened (level-2 got swapped).
+      </div>
+
+    </div>
+
+    <script>
+      Modalio.init();
+
+      // Simple trigger
+      $('#demo-embed').click(function(){
+        Modalio.embed('#modalio-basic-2');
+        return false;
+      });
+
+      // Nesting
+      $('#demo-nested-outer').click(function(){
+        Modalio.embed('#modalio-basic-3');
+        return false;
+      });
+      $('#demo-nested-inner').click(function(){
+        Modalio.embed('#modalio-basic-4', { policy: 'stack' });
+        return false;
+      });
+      $('#demo-nested-inner-inner').click(function(){
+        Modalio.embed('#modalio-basic-5');
+        return false;
+      });
+
+      // Messages
+      $('#demo-message').click(function(){
+        Modalio.message('Hello world!');
+        return false;
+      });
+
+      // Queues
+      $('#demo-message-queue').click(function(){
+        Modalio.message('One', { policy: 'queue' });
+        Modalio.message('Two', { policy: 'queue' });
+        Modalio.message('Three', { policy: 'queue' });
+        return false;
+      });
+    </script>
+
+  </body>
+</html>

@@ -1,12 +1,12 @@
-## jquery-modalio
+## Modalio
 
-### A high *and* low-level plugin to create and manage in-page modals.
+### A high *and* low-level library to create and manage in-page modals.
 
 
-**Modalio** is a tiny plugin to display, generate, embed, populate, queue, stack or asynchronously load content into modals.
+**Modalio** is a tiny library to display, generate, embed, populate, queue, stack or asynchronously load content into modals.
 It’s super fast and 100% style-free.
 
-I consider it a low-level plugin *and* an high-level one: it can be used *as-is* or extended, styled and customized in behaviour and appearance. In fact, very little default CSS is used, and it’s 100% overridable.
+I consider it a low-level plugin *and* a high-level one: it can be used *as-is* or extended, styled and customized in behaviour and appearance. In fact, very little default CSS is used, and it’s 100% overridable.
 
 It differs from most other modal libraries because it even allows the injection of *already-in-page* elements, keeping their event bindings, data-properties and edit status (e.g. inputs).
 
@@ -36,14 +36,14 @@ Another really great feature is stacking: three policies are offered (queue|stac
 
 Include assets in your page (*before* initializing Modalio):
 
-```
+```html
 <link rel="stylesheet" href="modalio.css">
-<scrip src="modalio.js"></script>
+<script src="modalio.js"></script>
 ```
 
-You have to initialize Modalio *after* document is ready (or by placing this code in a `script` tag at the very end of your `body` element):
+You have to initialize Modalio *after* document is ready (or by placing `Modalio.init()` in a `script` tag at the very end of your `body` element):
 
-```
+```js
 $(document).ready(function(){
 	Modalio.init({options});
 });
@@ -51,7 +51,7 @@ $(document).ready(function(){
 
 You can test Modalio immediately:
 
-```
+```js
 Modalio.message('Hello World!');
 ```
 

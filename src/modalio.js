@@ -53,7 +53,7 @@
   /**
    * Displays a text message in a standard modal.
    */
-  var message = function(message, type, options){
+  var message = function(message, options, type){
 
     var options = $.extend(true, {}, defaultOptions, options);
 

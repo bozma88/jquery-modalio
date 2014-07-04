@@ -1,0 +1,95 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Modalio by bozma88</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>Modalio</h1>
+        <p>Tiny plugin to display, generate, embed, populate, queue, stack or asynchronously load content into modals. Super fast, 100% style-free!</p>
+
+        <p class="view"><a href="https://github.com/bozma88/modalio">View the Project on GitHub <small>bozma88/modalio</small></a></p>
+
+
+        <ul>
+          <li><a href="https://github.com/bozma88/modalio/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/bozma88/modalio/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/bozma88/modalio">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <h2>
+<a name="modalio" class="anchor" href="#modalio"><span class="octicon octicon-link"></span></a>Modalio</h2>
+
+<h3>
+<a name="a-high-and-low-level-library-to-create-and-manage-in-page-modals" class="anchor" href="#a-high-and-low-level-library-to-create-and-manage-in-page-modals"><span class="octicon octicon-link"></span></a>A high <em>and</em> low-level library to create and manage in-page modals.</h3>
+
+<p><strong>Modalio</strong> is a tiny library to display, generate, embed, populate, queue, stack or asynchronously load content into modals.
+It’s super fast and 100% style-free.</p>
+
+<p>I consider it a low-level plugin <em>and</em> a high-level one: it can be used <em>as-is</em> or extended, styled and customized in behaviour and appearance. In fact, very little default CSS is used, and it’s 100% overridable.</p>
+
+<p>It differs from most other modal libraries because it even allows the injection of <em>already-in-page</em> elements, keeping their event bindings, data-properties and edit status (e.g. inputs).</p>
+
+<p>Another really great feature is stacking: three policies are offered (queue|stack|swap), allowing you to open a modal with the default policy, or a per-modal overridden one. This way, you can choose how to handle the opening of multiple modals at once.</p>
+
+<h3>
+<a name="main-features" class="anchor" href="#main-features"><span class="octicon octicon-link"></span></a>Main features:</h3>
+
+<ul>
+<li>3 stacking policies offered</li>
+<li>Out-of-DOM persistence: closed modals are detached from DOM to lower memory consumption, but their state is retained for eventual reopening</li>
+<li>Simple templating engine to clone and populate an empty, structured DOM element used as a template</li>
+<li>Flash message support: you can flag a modal to be automatically opened upon page load</li>
+<li>
+<code>window.alert()</code> replacement for quick informational messages</li>
+<li>Messages can be differentiated by tipe. Every message type has a template you can define or extend from the default one</li>
+<li>Automatic Close button injection (configurable and templatable)</li>
+<li>Can be triggered programmatically or via DOM element’s attributes, without needing a single line of javascript</li>
+<li>Asynchronous loading of modal’s content</li>
+<li>Open modal get focused upon opening (even if no input elements are inside it)</li>
+<li>Modals can be closed by clicking on their bezel, on elements flagged to behave like close buttons (via data-attributes), by clicking on ESC or ENTER. Every option is configurable on a per-modal basis</li>
+<li>Page scroll is disabled when a modal is open (retaining current scroll position)</li>
+<li>Tested on IE 10+, FF, Chrome, Safari, Mobile Safari</li>
+<li>Needs jQuery 1.8+</li>
+<li>When a modal is closed, you can choose whether to process the queue stack (eventually opening the next queued modal) or to clear the queue.</li>
+</ul><h3>
+<a name="how-to" class="anchor" href="#how-to"><span class="octicon octicon-link"></span></a>How-to:</h3>
+
+<p>Include assets in your page (<em>before</em> initializing Modalio):</p>
+
+<div class="highlight highlight-html"><pre><span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">"stylesheet"</span> <span class="na">href=</span><span class="s">"modalio.css"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"modalio.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+</pre></div>
+
+<p>You have to initialize Modalio <em>after</em> document is ready (or by placing <code>Modalio.init()</code> in a <code>script</code> tag at the very end of your <code>body</code> element):</p>
+
+<div class="highlight highlight-js"><pre><span class="nx">$</span><span class="p">(</span><span class="nb">document</span><span class="p">).</span><span class="nx">ready</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+    <span class="nx">Modalio</span><span class="p">.</span><span class="nx">init</span><span class="p">({</span><span class="nx">options</span><span class="p">});</span>
+<span class="p">});</span>
+</pre></div>
+
+<p>You can test Modalio immediately:</p>
+
+<div class="highlight highlight-js"><pre><span class="nx">Modalio</span><span class="p">.</span><span class="nx">message</span><span class="p">(</span><span class="s1">'Hello World!'</span><span class="p">);</span>
+</pre></div>
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/bozma88">bozma88</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="javascripts/scale.fix.js"></script>
+    
+  </body>
+</html>
